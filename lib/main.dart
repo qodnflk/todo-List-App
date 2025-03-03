@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practice/pages/startPage.dart';
 import 'package:practice/pages/todoListScreen.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.lightBlue,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: const TodoListScreen(),
+      home: const MyOnboarding(),
     );
   }
 }

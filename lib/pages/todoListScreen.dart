@@ -22,21 +22,32 @@ class _TodoListScreenState extends State<TodoListScreen> {
     _loadTodos();
   }
 
+  //jsonEncode => 저장할때 , jsonDecode => 불러올때
+  //SharedPreferences는 앱을 껏다 켜도 데이터가 유지
   Future<void> _saveTodos() async {
+    //앱 내부 저장소(SharedPreferences)를 가져와서 prefs라는 변수를 통해 사용가능하게 해줌
     final prefs = await SharedPreferences.getInstance();
+    //리스트(todos)를 JSON 형식의 문자열로 만환해서 저장할 준비
+    //jsonEncode()는 SharedPreferences는 문자열만 저장 가능해서 리스트를 문자열(JOSN 형태)로 변환함
     final String encodedData = jsonEncode(todos);
+    //할 일 목록을 'todo_list'라는 이름으로 저장
     await prefs.setString('todo_list', encodedData);
   }
 
   Future<void> _loadTodos() async {
     final prefs = await SharedPreferences.getInstance();
+    //저장된 할 일 목록을 가져와서 storedData 변수에 저장 만약 없으면 null 될수도 있음
     final String? storedData = prefs.getString('todo_list');
 
+    //만약 저장된 데이터가 있다면 할 일 목록을 업데이트
+    //jsonDecode JSON 문자열을 다시 리스트로
     if (storedData != null) {
       setState(() {
         todos = List<Map<String, dynamic>>.from(jsonDecode(storedData));
       });
     }
+
+    
   }
 
   void _addTodo() {
@@ -134,9 +145,9 @@ class _TodoListScreenState extends State<TodoListScreen> {
   AppBar todoAppBar() {
     return AppBar(
       centerTitle: true,
-      title: const Text('To-Do List'),
-      backgroundColor: Colors.lightBlue,
-      foregroundColor: Colors.white,
+      title: const Text('To Do List'),
+      backgroundColor: Colors.white,
+      foregroundColor: Colors.blue,
     );
   }
 
@@ -236,4 +247,5 @@ class _TodoListScreenState extends State<TodoListScreen> {
 //구현해 보고싶은기능
 //1.redo?
 //2.스와이프(좌우로 수정,삭제 하는것)
-//3.
+//3.onboarding구현 
+//4.글씨폰트 변경
