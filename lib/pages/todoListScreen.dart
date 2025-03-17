@@ -46,8 +46,6 @@ class _TodoListScreenState extends State<TodoListScreen> {
         todos = List<Map<String, dynamic>>.from(jsonDecode(storedData));
       });
     }
-
-    
   }
 
   void _addTodo() {
